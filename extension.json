@@ -1,7 +1,7 @@
 {
 	"name": "ArchiComments",
 	"author": "Pierre Rudloff",
-	"url": "https://github.com/Archi-Strasbourg/mediawiki-archi-blog",
+	"url": "https://github.com/Archi-Strasbourg/mediawiki-archi-comments",
 	"description": "Custom comments page for archi-wiki.org",
 	"type": "specialpage",
 	"SpecialPages": {
