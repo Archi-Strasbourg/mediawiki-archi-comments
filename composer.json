@@ -5,5 +5,9 @@
 	"require": {
 		"archi-strasbourg/archi-home": "dev-develop"
 	},
+	"repositories": [{
+		"type": "composer",
+		"url": "https://mwpackagist.netlib.re/"
+	}],
 	"type": "mediawiki-extension"
 }
