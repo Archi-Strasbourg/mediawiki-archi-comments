@@ -1,0 +1,9 @@
+{
+	"name": "archi-strasbourg/archi-comments",
+	"description": "Comments page for archi-wiki.org",
+	"license": "GPL-3.0",
+	"require": {
+		"archi-strasbourg/archi-home": "dev-develop"
+	},
+	"type": "mediawiki-extension"
+}
