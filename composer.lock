@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "efba02320fabd5da5de03872ca1bccec",
-    "content-hash": "8f01831564d6bcb507ff2b3df82ed21e",
+    "hash": "9d81df7e5ba9c0859d8abd33157f4696",
+    "content-hash": "e041b673dc13441f0dabc69948f7f6a9",
     "packages": [
         {
             "name": "archi-strasbourg/archi-home",
@@ -131,6 +131,20 @@
                 "zikula"
             ],
             "time": "2016-04-13 19:46:30"
+        },
+        {
+            "name": "mediawiki/Comments",
+            "version": "1.26",
+            "dist": {
+                "type": "tar",
+                "url": "https://extdist.wmflabs.org/dist/extensions/Comments-REL1_26-f913a64.tar.gz",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "mediawiki-extension"
         },
         {
             "name": "mediawiki/TextExtracts",
