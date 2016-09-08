@@ -16,16 +16,16 @@ class SpecialArchiComments extends \SpecialPage
 
         $dbr = wfGetDB(DB_SLAVE);
         $res = $dbr->select(
-            array('Comments', 'page'),
-            array('Comment_Page_ID', 'Comment_Date', 'Comment_Text'),
+            ['Comments', 'page'],
+            ['Comment_Page_ID', 'Comment_Date', 'Comment_Text'],
             'page_id IS NOT NULL',
             null,
-            array('ORDER BY'=>'Comment_Date DESC', 'LIMIT 20'),
-            array(
-                'page'=>array(
-                    'LEFT JOIN', 'Comment_Page_ID = page_id'
-                )
-            )
+            ['ORDER BY' => 'Comment_Date DESC', 'LIMIT 20'],
+            [
+                'page' => [
+                    'LEFT JOIN', 'Comment_Page_ID = page_id',
+                ],
+            ]
         );
 
         foreach ($res as $row) {
@@ -41,6 +41,6 @@ class SpecialArchiComments extends \SpecialPage
 
     public function getGroupName()
     {
-           return 'pages';
+        return 'pages';
     }
 }
