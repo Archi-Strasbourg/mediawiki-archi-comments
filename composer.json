@@ -4,7 +4,7 @@
 	"license": "GPL-3.0",
 	"require": {
 		"archi-strasbourg/archi-home": "dev-develop",
-		"mediawiki/Comments": "~1.26.0"
+		"mediawiki/Comments": "~1.26"
 	},
 	"repositories": [{
 		"type": "composer",
