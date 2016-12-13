@@ -1,16 +1,17 @@
 <?php
 /**
- * SpecialArchiComments class
+ * SpecialArchiComments class.
  */
+
 namespace ArchiComments;
 
 /**
- * SpecialPage Special:ArchiComments that lists recent comments
+ * SpecialPage Special:ArchiComments that lists recent comments.
  */
 class SpecialArchiComments extends \SpecialPage
 {
     /**
-     * SpecialArchiComments constructor
+     * SpecialArchiComments constructor.
      */
     public function __construct()
     {
@@ -18,7 +19,8 @@ class SpecialArchiComments extends \SpecialPage
     }
 
     /**
-     * Display the special page
+     * Display the special page.
+     *
      * @return void
      */
     public function execute()
@@ -55,7 +57,8 @@ class SpecialArchiComments extends \SpecialPage
     }
 
     /**
-     * Return the special page category
+     * Return the special page category.
+     *
      * @return string
      */
     public function getGroupName()
