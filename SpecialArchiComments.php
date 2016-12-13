@@ -1,15 +1,27 @@
 <?php
-
+/**
+ * SpecialArchiComments class
+ */
 namespace ArchiComments;
 
+/**
+ * SpecialPage Special:ArchiComments that lists recent comments
+ */
 class SpecialArchiComments extends \SpecialPage
 {
+    /**
+     * SpecialArchiComments constructor
+     */
     public function __construct()
     {
         parent::__construct('ArchiComments');
     }
 
-    public function execute($par)
+    /**
+     * Display the special page
+     * @return void
+     */
+    public function execute()
     {
         $output = $this->getOutput();
         $this->setHeaders();
@@ -42,6 +54,10 @@ class SpecialArchiComments extends \SpecialPage
         }
     }
 
+    /**
+     * Return the special page category
+     * @return string
+     */
     public function getGroupName()
     {
         return 'pages';
