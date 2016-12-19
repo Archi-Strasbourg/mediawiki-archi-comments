@@ -21,9 +21,11 @@ class SpecialArchiComments extends \SpecialPage
     /**
      * Display the special page.
      *
+     * @param string $subPage
+     *
      * @return void
      */
-    public function execute()
+    public function execute($subPage)
     {
         $output = $this->getOutput();
         $this->setHeaders();
