@@ -52,7 +52,7 @@ class SpecialArchiComments extends \SpecialPage
             $output->addWikiText('=== '.preg_replace('/\(.*\)/', '', $title->getText()).' ==='.PHP_EOL);
             $output->addHTML(\ArchiHome\SpecialArchiHome::getCategoryTree($title));
             $wikitext = "''".strtok(wordwrap($row->Comment_Text, 170, '…'.PHP_EOL), PHP_EOL)."''".PHP_EOL.PHP_EOL.
-                '[['.$title->getFullText().'#Commentaires|Consulter le commentaire]]';
+                '[['.$title->getFullText().'#'.wfMessage('comments')->parse().'|'.wfMessage('seecomment')->parse().']]';
             $output->addWikiText($wikitext);
             $output->addHTML('<div style="clear:both;"></div>');
         }
