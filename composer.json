@@ -3,7 +3,18 @@
 	"description": "Comments page for archi-wiki.org",
 	"license": "GPL-3.0",
 	"require": {
-		"archi-strasbourg/archi-home": "dev-develop"
+		"archi-strasbourg/archi-home": "dev-develop",
+		"mediawiki/Comments": "~1.26"
 	},
+    "require-dev": {
+        "phpdocumentor/phpdocumentor": "~2.9.0"
+    },
+    "scripts": {
+        "doc": "./vendor/bin/phpdoc -f SpecialArchiComments.php -t docs"
+    },
+	"repositories": [{
+		"type": "composer",
+		"url": "https://mwpackagist.netlib.re/"
+	}],
 	"type": "mediawiki-extension"
 }
