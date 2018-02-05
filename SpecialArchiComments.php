@@ -33,7 +33,7 @@ class SpecialArchiComments extends \SpecialPage
         $dbr = wfGetDB(DB_SLAVE);
         $res = $dbr->select(
             ['Comments', 'page'],
-            ['Comment_Page_ID', 'Comment_Date', 'Comment_Text'],
+            ['Comment_Page_ID', 'Comment_Date', 'Comment_Text', 'Comment_Username'],
             'page_id IS NOT NULL',
             null,
             ['ORDER BY' => 'Comment_Date DESC'],
@@ -48,9 +48,12 @@ class SpecialArchiComments extends \SpecialPage
             if ($res->key() > 20) {
                 break;
             }
+            $user = \User::newFromName($row->Comment_Username);
+            $date = new \DateTime($row->Comment_Date);
             $title = \Title::newFromId($row->Comment_Page_ID);
             $output->addWikiText('=== '.preg_replace('/\(.*\)/', '', $title->getText()).' ==='.PHP_EOL);
             $output->addHTML(\ArchiHome\SpecialArchiHome::getCategoryTree($title));
+            $output->addWikiText('Par [[Utilisateur:'.$user->getName().'|'.$user->getName().']] le '.strftime('%x', $date->getTimestamp()));
             $wikitext = "''".strtok(wordwrap($row->Comment_Text, 170, '…'.PHP_EOL), PHP_EOL)."''".PHP_EOL.PHP_EOL.
                 '[['.$title->getFullText().'#'.wfMessage('comments')->parse().'|'.wfMessage('seecomment')->parse().']]';
             $output->addWikiText($wikitext);
