@@ -5,10 +5,16 @@
 
 namespace ArchiComments;
 
+use ArchiHome\SpecialArchiHome;
+use DateTime;
+use SpecialPage;
+use Title;
+use User;
+
 /**
  * SpecialPage Special:ArchiComments that lists recent comments.
  */
-class SpecialArchiComments extends \SpecialPage
+class SpecialArchiComments extends SpecialPage
 {
     /**
      * SpecialArchiComments constructor.
@@ -48,11 +54,11 @@ class SpecialArchiComments extends \SpecialPage
             if ($res->key() > 20) {
                 break;
             }
-            $user = \User::newFromName($row->Comment_Username);
-            $date = new \DateTime($row->Comment_Date);
-            $title = \Title::newFromId($row->Comment_Page_ID);
+            $user = User::newFromName($row->Comment_Username);
+            $date = new DateTime($row->Comment_Date);
+            $title = Title::newFromId($row->Comment_Page_ID);
             $output->addWikiText('=== '.preg_replace('/\(.*\)/', '', $title->getText()).' ==='.PHP_EOL);
-            $output->addHTML(\ArchiHome\SpecialArchiHome::getCategoryTree($title));
+            $output->addHTML(SpecialArchiHome::getCategoryTree($title));
             $output->addWikiText('Par [[Utilisateur:'.$user->getName().'|'.$user->getName().']] le '.strftime('%x', $date->getTimestamp()));
             $wikitext = "''".strtok(wordwrap($row->Comment_Text, 170, '…'.PHP_EOL), PHP_EOL)."''".PHP_EOL.PHP_EOL.
                 '[['.$title->getFullText().'#'.wfMessage('comments')->parse().'|'.wfMessage('seecomment')->parse().']]';
