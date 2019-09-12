@@ -3,7 +3,7 @@
   "description": "Comments page for archi-wiki.org",
   "license": "GPL-3.0",
   "require": {
-    "archi-strasbourg/archi-home": "^1.0.0",
+    "archi-strasbourg/archi-home": "*",
     "mediawiki/Comments": "~1.26"
   },
   "require-dev": {
