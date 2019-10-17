@@ -4,7 +4,7 @@
   "license": "GPL-3.0",
   "require": {
     "archi-strasbourg/archi-home": "^1.0.0",
-    "mediawiki/Comments": "~1.26"
+    "mediawiki/comments": "~1.26"
   },
   "require-dev": {
     "phpdocumentor/phpdocumentor": "~2.9.0"
