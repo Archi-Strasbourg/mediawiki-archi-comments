@@ -5,6 +5,11 @@
 
 namespace ArchiComments;
 
+use DateTime;
+use Exception;
+use Title;
+use User;
+
 /**
  * SpecialPage Special:ArchiComments that lists recent comments.
  */
@@ -24,16 +29,17 @@ class SpecialArchiComments extends \SpecialPage
      * @param string $subPage
      *
      * @return void
+     * @throws Exception
      */
     public function execute($subPage)
     {
         $output = $this->getOutput();
         $this->setHeaders();
 
-        $dbr = wfGetDB(DB_SLAVE);
+        $dbr = wfGetDB(DB_REPLICA);
         $res = $dbr->select(
             ['Comments', 'page'],
-            ['Comment_Page_ID', 'Comment_Date', 'Comment_Text', 'Comment_Username'],
+            ['Comment_Page_ID', 'Comment_Date', 'Comment_Text', 'Comment_actor'],
             'page_id IS NOT NULL',
             null,
             ['ORDER BY' => 'Comment_Date DESC'],
@@ -48,15 +54,15 @@ class SpecialArchiComments extends \SpecialPage
             if ($res->key() > 20) {
                 break;
             }
-            $user = \User::newFromName($row->Comment_Username);
-            $date = new \DateTime($row->Comment_Date);
-            $title = \Title::newFromId($row->Comment_Page_ID);
-            $output->addWikiText('=== '.preg_replace('/\(.*\)/', '', $title->getText()).' ==='.PHP_EOL);
+            $user = User::newFromActorId($row->Comment_actor);
+            $date = new DateTime($row->Comment_Date);
+            $title = Title::newFromId($row->Comment_Page_ID);
+            $output->addWikiTextAsContent('=== '.preg_replace('/\(.*\)/', '', $title->getText()).' ==='.PHP_EOL);
             $output->addHTML(\ArchiHome\SpecialArchiHome::getCategoryTree($title));
-            $output->addWikiText('Par [[Utilisateur:'.$user->getName().'|'.$user->getName().']] le '.strftime('%x', $date->getTimestamp()));
+            $output->addWikiTextAsInterface('Par [[Utilisateur:'.$user->getName().'|'.$user->getName().']] le '.strftime('%x', $date->getTimestamp()));
             $wikitext = "''".strtok(wordwrap($row->Comment_Text, 170, '…'.PHP_EOL), PHP_EOL)."''".PHP_EOL.PHP_EOL.
                 '[['.$title->getFullText().'#'.wfMessage('comments')->parse().'|'.wfMessage('seecomment')->parse().']]';
-            $output->addWikiText($wikitext);
+            $output->addWikiTextAsContent($wikitext);
             $output->addHTML('<div style="clear:both;"></div>');
         }
     }
