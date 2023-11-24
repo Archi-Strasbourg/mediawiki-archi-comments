@@ -5,8 +5,10 @@
 
 namespace ArchiComments;
 
+use ArchiHome\SpecialArchiHome;
 use DateTime;
 use Exception;
+use MediaWiki\MediaWikiServices;
 use Title;
 use User;
 
@@ -35,13 +37,14 @@ class SpecialArchiComments extends \SpecialPage
     {
         $output = $this->getOutput();
         $this->setHeaders();
+        $services = MediaWikiServices::getInstance();
 
-        $dbr = wfGetDB(DB_REPLICA);
+        $dbr = $services->getDBLoadBalancer()->getConnection(DB_REPLICA);
         $res = $dbr->select(
             ['Comments', 'page'],
             ['Comment_Page_ID', 'Comment_Date', 'Comment_Text', 'Comment_actor'],
             'page_id IS NOT NULL',
-            null,
+            __METHOD__,
             ['ORDER BY' => 'Comment_Date DESC'],
             [
                 'page' => [
@@ -54,11 +57,12 @@ class SpecialArchiComments extends \SpecialPage
             if ($res->key() > 20) {
                 break;
             }
-            $user = User::newFromActorId($row->Comment_actor);
+            $user = $services->getUserFactory()
+                ->newFromActorId($row->Comment_actor);
             $date = new DateTime($row->Comment_Date);
             $title = Title::newFromId($row->Comment_Page_ID);
             $output->addWikiTextAsContent('=== '.preg_replace('/\(.*\)/', '', $title->getText()).' ==='.PHP_EOL);
-            $output->addHTML(\ArchiHome\SpecialArchiHome::getCategoryTree($title));
+            $output->addHTML(SpecialArchiHome::getCategoryTree($title));
             $output->addWikiTextAsInterface('Par [[Utilisateur:'.$user->getName().'|'.$user->getName().']] le '.strftime('%x', $date->getTimestamp()));
             $wikitext = "''".strtok(wordwrap($row->Comment_Text, 170, '…'.PHP_EOL), PHP_EOL)."''".PHP_EOL.PHP_EOL.
                 '[['.$title->getFullText().'#'.wfMessage('comments')->parse().'|'.wfMessage('seecomment')->parse().']]';
@@ -72,7 +76,7 @@ class SpecialArchiComments extends \SpecialPage
      *
      * @return string
      */
-    public function getGroupName()
+    public function getGroupName(): string
     {
         return 'pages';
     }
