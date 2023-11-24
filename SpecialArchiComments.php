@@ -61,11 +61,11 @@ class SpecialArchiComments extends \SpecialPage
                 ->newFromActorId($row->Comment_actor);
             $date = new DateTime($row->Comment_Date);
             $title = Title::newFromId($row->Comment_Page_ID);
-            $output->addWikiTextAsContent('=== '.preg_replace('/\(.*\)/', '', $title->getText()).' ==='.PHP_EOL);
+            $output->addWikiTextAsContent('=== ' . preg_replace('/\(.*\)/', '', $title->getText()) . ' ===' . PHP_EOL);
             $output->addHTML(SpecialArchiHome::getCategoryTree($title));
-            $output->addWikiTextAsInterface('Par [[Utilisateur:'.$user->getName().'|'.$user->getName().']] le '.strftime('%x', $date->getTimestamp()));
-            $wikitext = "''".strtok(wordwrap($row->Comment_Text, 170, '…'.PHP_EOL), PHP_EOL)."''".PHP_EOL.PHP_EOL.
-                '[['.$title->getFullText().'#'.wfMessage('comments')->parse().'|'.wfMessage('seecomment')->parse().']]';
+            $output->addWikiTextAsInterface('Par [[Utilisateur:' . $user->getName() . '|' . $user->getName() . ']] le ' . strftime('%x', $date->getTimestamp()));
+            $wikitext = "''" . strtok(wordwrap($row->Comment_Text, 170, '…' . PHP_EOL), PHP_EOL) . "''" . PHP_EOL . PHP_EOL .
+                '[[' . $title->getFullText() . '#' . wfMessage('comments')->parse() . '|' . wfMessage('seecomment')->parse() . ']]';
             $output->addWikiTextAsContent($wikitext);
             $output->addHTML('<div style="clear:both;"></div>');
         }
