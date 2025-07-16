@@ -4,8 +4,8 @@
   "license": "GPL-3.0-only",
   "require": {
     "archi-strasbourg/archi-home": "dev-master",
-    "mediawiki/comments": "dev-REL1_39",
-    "mediawiki/text-extracts": "dev-REL1_35"
+    "mediawiki/comments": "dev-REL1_43",
+    "mediawiki/text-extracts": "*@dev"
   },
   "repositories": [
     {
@@ -16,12 +16,12 @@
       "type": "package",
       "package": {
         "name": "mediawiki/comments",
-        "version": "dev-REL1_39",
+        "version": "dev-REL1_43",
         "type": "mediawiki-extension",
         "source": {
           "url": "https://github.com/wikimedia/mediawiki-extensions-Comments.git",
           "type": "git",
-          "reference": "6ecba59f61345aa9d6a3fb30c8e4152ae190f044"
+          "reference": "254ac7820868855d3d49430ad8b935cdbd338060"
         }
       }
     }
