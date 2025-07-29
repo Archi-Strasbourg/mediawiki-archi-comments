@@ -63,7 +63,7 @@ class SpecialArchiComments extends \SpecialPage
             $title = Title::newFromId($row->Comment_Page_ID);
             $output->addWikiTextAsContent('=== ' . preg_replace('/\(.*\)/', '', $title->getText()) . ' ===' . PHP_EOL);
             $output->addHTML(SpecialArchiHome::getCategoryTree($title));
-            $output->addWikiTextAsInterface('Par [[Utilisateur:' . $user->getName() . '|' . $user->getName() . ']] le ' . strftime('%x', $date->getTimestamp()));
+            $output->addWikiTextAsInterface('Par [[Utilisateur:' . $user->getName() . '|' . $user->getName() . ']] le ' . $date->format('d/m/Y'));
             $wikitext = "''" . strtok(wordwrap($row->Comment_Text, 170, '…' . PHP_EOL), PHP_EOL) . "''" . PHP_EOL . PHP_EOL .
                 '[[' . $title->getFullText() . '#' . wfMessage('comments')->parse() . '|' . wfMessage('seecomment')->parse() . ']]';
             $output->addWikiTextAsContent($wikitext);
